@@ -16,17 +16,18 @@ public class PasscodeLockViewController: UIViewController, PasscodeLockTypeDeleg
         case ChangePasscode
         case RemovePasscode
         
-		func getState(stringsToShow: StringsToBeDisplayed?) -> PasscodeLockStateType {
+		func getState(stringsToShow: StringsToBeDisplayed?, tintColor: UIColor?, font: UIFont?) -> PasscodeLockStateType {
             
             switch self {
-			case .EnterPasscode: 	return EnterPasscodeState(stringsToShow: stringsToShow)
-			case .SetPasscode: 		return SetPasscodeState(stringsToShow: stringsToShow)
-			case .ChangePasscode: 	return ChangePasscodeState(stringsToShow: stringsToShow)
-            case .RemovePasscode: 	return EnterPasscodeState(allowCancellation: true, stringsToShow: stringsToShow)
+			case .EnterPasscode: 	return EnterPasscodeState(stringsToShow: stringsToShow, tintColor: tintColor, font: font)
+			case .SetPasscode: 		return SetPasscodeState(stringsToShow: stringsToShow, tintColor: tintColor, font: font)
+			case .ChangePasscode: 	return ChangePasscodeState(stringsToShow: stringsToShow, tintColor: tintColor, font: font)
+			case .RemovePasscode: 	return EnterPasscodeState(allowCancellation: true, stringsToShow: stringsToShow, tintColor: tintColor, font: font)
             }
         }
     }
     
+	@IBOutlet public var passcodeButtons				: [PasscodeSignButton]?
     @IBOutlet public weak var titleLabel				: UILabel?
 	@IBOutlet public weak var customImageView			: UIImageView?
     @IBOutlet public weak var descriptionLabel			: UILabel?
@@ -48,13 +49,17 @@ public class PasscodeLockViewController: UIViewController, PasscodeLockTypeDeleg
     internal var isPlaceholdersAnimationCompleted 		= true
     
     private var shouldTryToAuthenticateWithBiometrics 	= true
+	private var customTintColor							: UIColor?
+	private var font 									: UIFont?
     
     // MARK: - Initializers
     
-	public init(state: PasscodeLockStateType, configuration: PasscodeLockConfigurationType, animateOnDismiss: Bool = true, stringToShow: StringsToBeDisplayed?) {
+	public init(state: PasscodeLockStateType, configuration: PasscodeLockConfigurationType, animateOnDismiss: Bool = true, stringToShow: StringsToBeDisplayed?, tintColor: UIColor?, font: UIFont?) {
 
 		self.stringsToShow = stringToShow
         self.animateOnDismiss = animateOnDismiss
+		self.font = (font ?? UIFont.systemFontOfSize(16))
+		self.customTintColor = (tintColor ?? UIColor(red: 0, green: 100/255, blue: 165/255, alpha: 1))
         passcodeConfiguration = configuration
         passcodeLock = PasscodeLock(state: state, configuration: configuration)
         let nibName = "PasscodeLockView"
@@ -65,9 +70,9 @@ public class PasscodeLockViewController: UIViewController, PasscodeLockTypeDeleg
         notificationCenter = NSNotificationCenter.defaultCenter()
     }
     
-	public convenience init(state: LockState, configuration: PasscodeLockConfigurationType, animateOnDismiss: Bool = true, stringsToShow: StringsToBeDisplayed?) {
+	public convenience init(state: LockState, configuration: PasscodeLockConfigurationType, animateOnDismiss: Bool = true, stringsToShow: StringsToBeDisplayed?, tintColor: UIColor?, font: UIFont?) {
         
-        self.init(state: state.getState(stringsToShow), configuration: configuration, animateOnDismiss: animateOnDismiss, stringToShow: stringsToShow)
+        self.init(state: state.getState(stringsToShow, tintColor: tintColor, font: font), configuration: configuration, animateOnDismiss: animateOnDismiss, stringToShow: stringsToShow, tintColor: tintColor, font: font)
     }
     
     public required init(coder aDecoder: NSCoder) {
@@ -82,10 +87,21 @@ public class PasscodeLockViewController: UIViewController, PasscodeLockTypeDeleg
     
     public override func viewDidLoad() {
         super.viewDidLoad()
-        
-        updatePasscodeView()
-        setupEvents()
+
+		self.configurePasscodeButtons()
+        self.updatePasscodeView()
+        self.setupEvents()
     }
+
+	private func configurePasscodeButtons() {
+
+		self.placeholders.forEach { (passcodePlaceHolder: PasscodeSignPlaceholderView) in
+			if let _customTintColor = self.customTintColor {
+				passcodePlaceHolder.activeColor = _customTintColor
+			}
+			passcodePlaceHolder.setupView()
+		}
+	}
     
     public override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
@@ -97,11 +113,18 @@ public class PasscodeLockViewController: UIViewController, PasscodeLockTypeDeleg
     
     internal func updatePasscodeView() {
 
-		customImageView?.image = self.customImage
-        titleLabel?.text = passcodeLock.state.title
-        descriptionLabel?.text = passcodeLock.state.description
-        touchIDButton?.hidden = !passcodeLock.isTouchIDAllowed
-		touchIDButton?.setTitle((self.stringsToShow?.useTouchID ?? localizedStringFor("UseTouchId", comment: "")), forState: .Normal)
+		self.customImageView?.image = self.customImage
+        self.titleLabel?.text = passcodeLock.state.title
+		self.titleLabel?.font = self.font
+		self.titleLabel?.textColor = self.customTintColor
+        self.descriptionLabel?.text = passcodeLock.state.description
+        self.touchIDButton?.hidden = !passcodeLock.isTouchIDAllowed
+		self.touchIDButton?.setTitle((self.stringsToShow?.useTouchID ?? localizedStringFor("UseTouchId", comment: "")), forState: .Normal)
+
+		self.passcodeButtons?.forEach({ (passcodeButton: PasscodeSignButton) in
+			passcodeButton.tintColor = self.customTintColor
+		})
+
 		self.cancelDeleteButtonSetup()
     }
     
@@ -137,7 +160,7 @@ public class PasscodeLockViewController: UIViewController, PasscodeLockTypeDeleg
 			return
 		}
         
-        passcodeLock.addSign(sender.passcodeSign)
+        passcodeLock.addSign(sender.passcodeSign, stringsToBeDisplayed: self.stringsToShow, tintColor: customTintColor, font: font)
     }
     
     @IBAction func cancelButtonTap(sender: UIButton) {
@@ -222,7 +245,7 @@ public class PasscodeLockViewController: UIViewController, PasscodeLockTypeDeleg
         guard (index < placeholders.count && index >= 0) else {
 			return
 		}
-        
+
         placeholders[index].animateState(state)
     }
 
@@ -269,6 +292,8 @@ public class PasscodeLockViewController: UIViewController, PasscodeLockTypeDeleg
 		let cancelButton = ((self.passcodeLock.isPincodeEmpty == true) ? (self.stringsToShow?.cancel ?? localizedStringFor("Cancel", comment: "")) : (self.stringsToShow?.delete ?? localizedStringFor("Delete", comment: "")))
 		let titleForButton = ((self.passcodeLock.state.isCancellableAction == true) ? cancelButton : (self.stringsToShow?.delete ?? localizedStringFor("Delete", comment: "")))
 		self.cancelDeleteButton?.setTitle(titleForButton, forState: .Normal)
+		self.cancelDeleteButton?.setTitleColor(self.customTintColor, forState: .Normal)
+		self.cancelDeleteButton?.titleLabel?.font = self.font
 
 		if (self.passcodeLock.isPincodeEmpty == true && self.passcodeLock.state.isCancellableAction == false) {
 			self.cancelDeleteButton?.enabled = false

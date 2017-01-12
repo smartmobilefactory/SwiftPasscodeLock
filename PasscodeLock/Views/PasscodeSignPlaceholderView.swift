@@ -16,28 +16,28 @@ public class PasscodeSignPlaceholderView: UIView {
         case Active
         case Error
     }
-    
-    @IBInspectable
-    public var inactiveColor: UIColor = UIColor.whiteColor() {
-        didSet {
-            setupView()
-        }
-    }
-    
-    @IBInspectable
-    public var activeColor: UIColor = UIColor.grayColor() {
-        didSet {
-            setupView()
-        }
-    }
-    
-    @IBInspectable
-    public var errorColor: UIColor = UIColor.redColor() {
-        didSet {
-            setupView()
-        }
-    }
-    
+
+	@IBInspectable
+	public var inactiveColor: UIColor = UIColor.whiteColor() {
+		didSet {
+			self.setupView()
+		}
+	}
+
+	@IBInspectable
+	public var activeColor: UIColor = UIColor.grayColor() {
+		didSet {
+			self.setupView()
+		}
+	}
+
+	@IBInspectable
+	public var errorColor: UIColor = UIColor.redColor() {
+		didSet {
+			self.setupView()
+		}
+	}
+
     public override init(frame: CGRect) {
         
         super.init(frame: frame)
@@ -55,7 +55,7 @@ public class PasscodeSignPlaceholderView: UIView {
         return CGSizeMake(16, 16)
     }
     
-    private func setupView() {
+	func setupView() {
         
         layer.cornerRadius = 7
         layer.borderWidth = 1
@@ -72,23 +72,16 @@ public class PasscodeSignPlaceholderView: UIView {
         }
     }
     
-    public func animateState(state: State) {
+	public func animateState(state: State, completion: (() -> Void)? = nil) {
         
         let colors = colorsForState(state)
-        
-        UIView.animateWithDuration(
-            0.5,
-            delay: 0,
-            usingSpringWithDamping: 1,
-            initialSpringVelocity: 0,
-            options: [],
-            animations: {
-                
-                self.backgroundColor = colors.backgroundColor
-                self.layer.borderColor = colors.borderColor.CGColor
-                
-            },
-            completion: nil
-        )
-    }
+
+		UIView.animateWithDuration(0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 0, options: [], animations: { [weak self] in
+			self?.backgroundColor = colors.backgroundColor
+			self?.layer.borderColor = colors.borderColor.CGColor
+
+ 		}, completion: nil)
+	}
+
 }
+

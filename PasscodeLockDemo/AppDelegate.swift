@@ -17,14 +17,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     lazy var passcodeLockPresenter: PasscodeLockPresenter = {
         
         let configuration = PasscodeLockConfiguration()
-        let presenter = PasscodeLockPresenter(mainWindow: self.window, configuration: configuration, stringsToShow: nil)
+        let presenter = PasscodeLockPresenter(mainWindow: self.window, configuration: configuration, stringsToShow: nil, tintColor: UIColor.blueColor(), font: UIFont.italicSystemFontOfSize(16))
         
         return presenter
     }()
     
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         
-		passcodeLockPresenter.presentPasscodeLock()
+		passcodeLockPresenter.presentPasscodeLock(tintColor: UIColor.blueColor(), font: UIFont.italicSystemFontOfSize(16))
 
         return true
     }
@@ -38,7 +38,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
         
-		passcodeLockPresenter.presentPasscodeLock()
+		passcodeLockPresenter.presentPasscodeLock(tintColor: UIColor.blueColor(), font: UIFont.italicSystemFontOfSize(16))
     }
 
     func applicationWillEnterForeground(application: UIApplication) {

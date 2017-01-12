@@ -17,7 +17,7 @@ public protocol PasscodeLockType {
     var isTouchIDAllowed: Bool {get}
 	var isPincodeEmpty: Bool {get}
 
-    func addSign(sign: String)
+	func addSign(sign: String, stringsToBeDisplayed: StringsToBeDisplayed?, tintColor: UIColor?, font: UIFont?)
     func removeSign()
     func changeStateTo(state: PasscodeLockStateType)
 	func authenticateWithBiometrics(stringsToShow: StringsToBeDisplayed?)

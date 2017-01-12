@@ -41,15 +41,15 @@ public class PasscodeLock: PasscodeLockType {
         self.configuration = configuration
     }
     
-    public func addSign(sign: String) {
+	public func addSign(sign: String, stringsToBeDisplayed: StringsToBeDisplayed?, tintColor: UIColor?, font: UIFont?) {
         
         passcode.append(sign)
         delegate?.passcodeLock(self, addedSignAtIndex: passcode.count - 1)
         
-        if passcode.count >= configuration.passcodeLength {
-            
-            lockState.acceptPasscode(passcode, fromLock: self, stringsToShow: nil)
-            passcode.removeAll(keepCapacity: true)
+        if (passcode.count >= configuration.passcodeLength) {
+
+			self.lockState.acceptPasscode(self.passcode, fromLock: self, stringsToShow: stringsToBeDisplayed, tintColor: tintColor, font: font)
+			self.passcode.removeAll(keepCapacity: true)
         }
     }
     

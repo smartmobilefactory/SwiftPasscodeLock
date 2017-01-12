@@ -12,37 +12,39 @@ public let PasscodeLockIncorrectPasscodeNotification = "passcode.lock.incorrect.
 
 struct EnterPasscodeState: PasscodeLockStateType {
     
-    let title: String
-    let description: String
-    let isCancellableAction: Bool
-    var isTouchIDAllowed = true
+    let title				: String
+    let description			: String
+    let isCancellableAction	: Bool
+    var isTouchIDAllowed 	= true
+	var tintColor			: UIColor?
+	var font				: UIFont?
     
     private var inccorectPasscodeAttempts = 0
     private var isNotificationSent = false
     
-	init(allowCancellation: Bool = false, stringsToShow: StringsToBeDisplayed?) {
+	init(allowCancellation: Bool = false, stringsToShow: StringsToBeDisplayed?, tintColor: UIColor?, font: UIFont?) {
 
-        isCancellableAction = allowCancellation
-        title = (stringsToShow?.passcodeLockEnterTitle ?? localizedStringFor("PasscodeLockEnterTitle", comment: "Enter passcode title"))
-        description = (stringsToShow?.passcodeLockEnterDescription ?? localizedStringFor("PasscodeLockEnterDescription", comment: "Enter passcode description"))
+		let defaultColor = UIColor(red: 0, green: 100/255, blue: 165/255, alpha: 1)
+        self.isCancellableAction = allowCancellation
+        self.title = (stringsToShow?.passcodeLockEnterTitle ?? localizedStringFor("PasscodeLockEnterTitle", comment: "Enter passcode title"))
+        self.description = (stringsToShow?.passcodeLockEnterDescription ?? localizedStringFor("PasscodeLockEnterDescription", comment: "Enter passcode description"))
+		self.tintColor = (tintColor ?? defaultColor)
+		self.font = (font ?? UIFont.systemFontOfSize(16))
     }
     
-	mutating func acceptPasscode(passcode: [String], fromLock lock: PasscodeLockType, stringsToShow: StringsToBeDisplayed?) {
+	mutating func acceptPasscode(passcode: [String], fromLock lock: PasscodeLockType, stringsToShow: StringsToBeDisplayed?, tintColor: UIColor?, font: UIFont?) {
         
         guard let currentPasscode = lock.repository.passcode else {
             return
         }
         
-        if passcode == currentPasscode {
-            
+        if (passcode == currentPasscode) {
             lock.delegate?.passcodeLockDidSucceed(lock)
             
         } else {
             
             inccorectPasscodeAttempts += 1
-            
-            if inccorectPasscodeAttempts >= lock.configuration.maximumInccorectPasscodeAttempts {
-                
+            if (inccorectPasscodeAttempts >= lock.configuration.maximumInccorectPasscodeAttempts) {
                 postNotification()
             }
             
@@ -55,9 +57,7 @@ struct EnterPasscodeState: PasscodeLockStateType {
         guard !isNotificationSent else { return }
             
         let center = NSNotificationCenter.defaultCenter()
-        
         center.postNotificationName(PasscodeLockIncorrectPasscodeNotification, object: nil)
-        
-        isNotificationSent = true
+        self.isNotificationSent = true
     }
 }
