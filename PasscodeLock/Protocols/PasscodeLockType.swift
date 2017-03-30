@@ -6,7 +6,7 @@
 //  Copyright © 2015 Yanko Dimitrov. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 public protocol PasscodeLockType {
     
@@ -17,17 +17,17 @@ public protocol PasscodeLockType {
     var isTouchIDAllowed: Bool {get}
 	var isPincodeEmpty: Bool {get}
 
-	func addSign(sign: String, stringsToBeDisplayed: StringsToBeDisplayed?, tintColor: UIColor?, font: UIFont?)
+	func addSign(_ sign: String, stringsToBeDisplayed: StringsToBeDisplayed?, tintColor: UIColor?, font: UIFont?)
     func removeSign()
-    func changeStateTo(state: PasscodeLockStateType)
-	func authenticateWithBiometrics(stringsToShow: StringsToBeDisplayed?)
+    func changeStateTo(_ state: PasscodeLockStateType)
+	func authenticateWithBiometrics(_ stringsToShow: StringsToBeDisplayed?)
 }
 
 public protocol PasscodeLockTypeDelegate: class {
     
-    func passcodeLockDidSucceed(lock: PasscodeLockType)
-    func passcodeLockDidFail(lock: PasscodeLockType)
-    func passcodeLockDidChangeState(lock: PasscodeLockType)
-    func passcodeLock(lock: PasscodeLockType, addedSignAtIndex index: Int)
-    func passcodeLock(lock: PasscodeLockType, removedSignAtIndex index: Int)
+    func passcodeLockDidSucceed(_ lock: PasscodeLockType)
+    func passcodeLockDidFail(_ lock: PasscodeLockType)
+    func passcodeLockDidChangeState(_ lock: PasscodeLockType)
+    func passcodeLock(_ lock: PasscodeLockType, addedSignAtIndex index: Int)
+    func passcodeLock(_ lock: PasscodeLockType, removedSignAtIndex index: Int)
 }
