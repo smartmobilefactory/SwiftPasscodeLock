@@ -29,11 +29,7 @@ struct ChangePasscodeState: PasscodeLockStateType {
     
 	func acceptPasscode(_ passcode: [String], fromLock lock: PasscodeLockType, stringsToShow: StringsToBeDisplayed?, tintColor: UIColor?, font: UIFont?) {
         
-        guard let currentPasscode = lock.repository.passcode else {
-            return
-        }
-        
-        if (passcode == currentPasscode) {
+        if lock.repository.isPasscodeCorrect(passcode) {
 			let nextState = SetPasscodeState(stringsToShow: stringsToShow, tintColor: tintColor, font: font)
             lock.changeStateTo(nextState)
             
