@@ -62,9 +62,10 @@ open class PasscodeLock: PasscodeLockType {
     }
     
     open func changeStateTo(_ state: PasscodeLockStateType) {
-        
-        lockState = state
-        delegate?.passcodeLockDidChangeState(self)
+        DispatchQueue.main.async {
+            self.lockState = state
+            self.delegate?.passcodeLockDidChangeState(self)
+        }
     }
     
 	open func authenticateWithBiometrics(_ stringsToShow: StringsToBeDisplayed?) {

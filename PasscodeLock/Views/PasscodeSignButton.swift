@@ -10,7 +10,7 @@ import UIKit
 
 open class PasscodeSignButton: UIButton {
     
-    open var passcodeSign: String = "1"
+    @IBInspectable open var passcodeSign: String!
 	open var customTintColor: UIColor? = UIColor(red: 0, green: 100/255, blue: 165/255, alpha: 1)
 
 	open override func awakeFromNib() {

@@ -142,12 +142,12 @@ open class PasscodeLockViewController: UIViewController, PasscodeLockTypeDelegat
         notificationCenter?.removeObserver(self, name: NSNotification.Name.UIApplicationDidEnterBackground, object: nil)
     }
     
-    open func appWillEnterForegroundHandler(_ notification: Notification) {
+    @objc open func appWillEnterForegroundHandler(_ notification: Notification) {
         
         authenticateWithBiometrics()
     }
     
-    open func appDidEnterBackgroundHandler(_ notification: Notification) {
+    @objc open func appDidEnterBackgroundHandler(_ notification: Notification) {
         
         shouldTryToAuthenticateWithBiometrics = false
     }
@@ -195,7 +195,7 @@ open class PasscodeLockViewController: UIViewController, PasscodeLockTypeDelegat
         // if presented as modal
         if (presentingViewController?.presentedViewController == self) {
             
-            dismiss(animated: animateOnDismiss, completion: { [weak self] _ in
+            dismiss(animated: animateOnDismiss, completion: { [weak self] in
                 self?.dismissCompletionCallback?()
                 completionHandler?()
             })
@@ -255,7 +255,7 @@ open class PasscodeLockViewController: UIViewController, PasscodeLockTypeDelegat
 
 		self.cancelDeleteButtonSetup()
         animatePlaceholders(placeholders, toState: .inactive)
-        dismissPasscodeLock(lock, completionHandler: { [weak self] _ in
+        dismissPasscodeLock(lock, completionHandler: { [weak self] in
             self?.successCallback?(lock)
         })
     }
@@ -288,6 +288,14 @@ open class PasscodeLockViewController: UIViewController, PasscodeLockTypeDelegat
     }
 
 	open func cancelDeleteButtonSetup() {
+		DispatchQueue.main.async {
+			// Swift 4: fix for
+			// Simultaneous accesses to ... but modification requires exclusive access.
+			self.doCancelDeleteButtonSetup()
+		}
+	}
+    
+    open func doCancelDeleteButtonSetup() {
 		
 		let cancelButton = ((self.passcodeLock.isPincodeEmpty == true) ? (self.stringsToShow?.cancel ?? localizedStringFor("Cancel", comment: "")) : (self.stringsToShow?.delete ?? localizedStringFor("Delete", comment: "")))
 		let titleForButton = ((self.passcodeLock.state.isCancellableAction == true) ? cancelButton : (self.stringsToShow?.delete ?? localizedStringFor("Delete", comment: "")))
