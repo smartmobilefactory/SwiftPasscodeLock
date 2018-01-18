@@ -112,36 +112,34 @@ open class PasscodeLockViewController: UIViewController, PasscodeLockTypeDelegat
         }
     }
     
-    internal func updatePasscodeView() {
+	internal func updatePasscodeView() {
 
 		self.customImageView?.image = self.customImage
-        self.titleLabel?.text = passcodeLock.state.title
+		self.titleLabel?.text = passcodeLock.state.title
 		self.titleLabel?.font = self.font
 		self.titleLabel?.textColor = self.customTintColor
-        self.descriptionLabel?.text = passcodeLock.state.description
-        self.touchIDButton?.isHidden = !passcodeLock.isTouchIDAllowed
+		self.descriptionLabel?.text = passcodeLock.state.description
+		self.touchIDButton?.isHidden = !passcodeLock.isTouchIDAllowed
 
-		var useBiometrics: String = ""
+		var useBiometrics: String = localizedStringFor("UseTouchId", comment: "")
+		var useBiomatricsToShow: String? = self.stringsToShow?.useTouchID
 		if #available(iOS 11.0, *) {
 			let context = LAContext()
 			context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: nil)
 			let bioType = context.biometryType
-			if (bioType == .touchID) {
-				useBiometrics = localizedStringFor("UseTouchId", comment: "")
-			} else if (bioType == .faceID) {
+			if (bioType == .faceID) {
 				useBiometrics = localizedStringFor("UseFaceId", comment: "")
+				useBiomatricsToShow = self.stringsToShow?.useFaceID
 			}
 		}
 
-		self.touchIDButton?.setTitle((self.stringsToShow?.useTouchID ?? useBiometrics), for: UIControlState())
-		self.touchIDButton?.setTitleColor(self.customTintColor, for: UIControlState())
-
+		self.touchIDButton?.setTitle((useBiomatricsToShow ?? useBiometrics), for: UIControlState())
 		self.passcodeButtons?.forEach({ (passcodeButton: PasscodeSignButton) in
 			passcodeButton.tintColor = self.customTintColor
 		})
 
 		self.cancelDeleteButtonSetup()
-    }
+	}
     
     // MARK: - Events
     
