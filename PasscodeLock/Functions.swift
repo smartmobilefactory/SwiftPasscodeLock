@@ -13,8 +13,8 @@ func localizedStringFor(_ key: String, comment: String) -> String {
     
     let name = "Localize"
     let bundle = bundleForResource(name, ofType: "strings")
-    
-    return NSLocalizedString(key, tableName: name, bundle: bundle, comment: comment)
+
+    return NSLocalizedString(key, tableName: name, bundle: bundle, value: "", comment: comment)
 }
 
 func bundleForResource(_ name: String, ofType type: String) -> Bundle {
