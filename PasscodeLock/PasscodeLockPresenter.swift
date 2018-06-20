@@ -27,8 +27,9 @@ public struct StringsToBeDisplayed {
 	public var cancel:								String?
 	public var delete:								String?
 	public var useTouchID:							String?
+	public var useFaceID:							String?
 
-	public init(passcodeLockEnterTitle: String?, passcodeLockEnterDescription: String?, passcodeLockSetTitle: String?, passcodeLockSetDescription: String?, passcodeLockConfirmTitle: String?, passcodeLockConfirmDescription: String?, passcodeLockChangeTitle: String?,  passcodeLockChangeDescription: String?, passcodeLockMismatchTitle: String?, passcodeLockMismatchDescription: String?, passcodeLockTouchIDReason: String?, passcodeLockTouchIDButton: String?, cancel: String?, delete: String?, useTouchID: String?) {
+	public init(passcodeLockEnterTitle: String?, passcodeLockEnterDescription: String?, passcodeLockSetTitle: String?, passcodeLockSetDescription: String?, passcodeLockConfirmTitle: String?, passcodeLockConfirmDescription: String?, passcodeLockChangeTitle: String?,  passcodeLockChangeDescription: String?, passcodeLockMismatchTitle: String?, passcodeLockMismatchDescription: String?, passcodeLockTouchIDReason: String?, passcodeLockTouchIDButton: String?, cancel: String?, delete: String?, useTouchID: String?, useFaceID: String?) {
 
 		self.passcodeLockEnterTitle = passcodeLockEnterTitle
 		self.passcodeLockEnterDescription = passcodeLockEnterDescription
@@ -45,6 +46,7 @@ public struct StringsToBeDisplayed {
 		self.cancel = cancel
 		self.delete = delete
 		self.useTouchID = useTouchID
+		self.useFaceID = useFaceID
 	}
 }
 

@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		281AA9201DB626E000908E23 /* Localize.strings in Resources */ = {isa = PBXBuildFile; fileRef = 281AA9221DB626E000908E23 /* Localize.strings */; };
+		4A57CCF92010A437006A7B80 /* Localize.strings in Resources */ = {isa = PBXBuildFile; fileRef = 281AA9221DB626E000908E23 /* Localize.strings */; };
 		8F3B9D031E028815008CF18F /* PasscodeLockImages.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8F3B9D021E028815008CF18F /* PasscodeLockImages.xcassets */; };
 		C99EAF431B90B05700D61E1B /* PasscodeLock.h in Headers */ = {isa = PBXBuildFile; fileRef = C99EAF421B90B05700D61E1B /* PasscodeLock.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C99EAF4A1B90B05800D61E1B /* PasscodeLock.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C99EAF3F1B90B05700D61E1B /* PasscodeLock.framework */; };
@@ -516,6 +517,7 @@
 				C9D3DF1D1B91AD11008561EB /* LaunchScreen.storyboard in Resources */,
 				C9D3DF1A1B91AD11008561EB /* Assets.xcassets in Resources */,
 				C9D3DF181B91AD11008561EB /* Main.storyboard in Resources */,
+				4A57CCF92010A437006A7B80 /* Localize.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
