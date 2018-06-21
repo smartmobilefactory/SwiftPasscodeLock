@@ -7,15 +7,17 @@
 //
 
 import Foundation
+import PasscodeLock
 
 class FakePasscodeLock: PasscodeLockType {
-    
+
     weak var delegate: PasscodeLockTypeDelegate?
     let configuration: PasscodeLockConfigurationType
     var repository: PasscodeRepositoryType { return configuration.repository }
     var state: PasscodeLockStateType { return lockState }
     let isTouchIDAllowed = false
     var lockState: PasscodeLockStateType
+	var isPincodeEmpty: Bool = false
     
     var changeStateCalled = false
     
@@ -25,7 +27,7 @@ class FakePasscodeLock: PasscodeLockType {
         self.configuration = configuration
     }
     
-    func addSign(sign: String) {
+	func addSign(_ sign: String, stringsToBeDisplayed: StringsToBeDisplayed?, tintColor: UIColor?, font: UIFont?) {
         
     }
     
@@ -33,14 +35,14 @@ class FakePasscodeLock: PasscodeLockType {
         
     }
     
-    func changeStateTo(state: PasscodeLockStateType) {
+    func changeStateTo(_ state: PasscodeLockStateType) {
         
         lockState = state
         changeStateCalled = true
         delegate?.passcodeLockDidChangeState(self)
     }
-    
-    func authenticateWithBiometrics() {
+
+	func authenticateWithBiometrics(_ stringsToShow: StringsToBeDisplayed?) {
         
     }
 }

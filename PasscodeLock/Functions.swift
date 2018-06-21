@@ -7,22 +7,23 @@
 //
 
 import Foundation
+import UIKit
 
-func localizedStringFor(key: String, comment: String) -> String {
+func localizedStringFor(_ key: String, comment: String) -> String {
     
     let name = "Localize"
     let bundle = bundleForResource(name, ofType: "strings")
-    
-    return NSLocalizedString(key, tableName: name, bundle: bundle, comment: comment)
+
+    return NSLocalizedString(key, tableName: name, bundle: bundle, value: "", comment: comment)
 }
 
-func bundleForResource(name: String, ofType type: String) -> NSBundle {
+func bundleForResource(_ name: String, ofType type: String) -> Bundle {
     
-    if(NSBundle.mainBundle().pathForResource(name, ofType: type) != nil) {
-        return NSBundle.mainBundle()
+    if(Bundle.main.path(forResource: name, ofType: type) != nil) {
+        return Bundle.main
     }
     
-    return NSBundle(forClass: PasscodeLock.self)
+    return Bundle(for: PasscodeLock.self)
 }
 
 func defaultCustomColor() -> UIColor {

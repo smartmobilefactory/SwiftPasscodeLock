@@ -7,6 +7,7 @@
 //
 
 import XCTest
+@testable import PasscodeLock
 
 class ConfirmPasscodeStateTests: XCTestCase {
     
@@ -22,7 +23,7 @@ class ConfirmPasscodeStateTests: XCTestCase {
         
         let config = FakePasscodeLockConfiguration(repository: repository)
         
-        passcodeState = ConfirmPasscodeState(passcode: passcodeToConfirm)
+        passcodeState = ConfirmPasscodeState(passcode: passcodeToConfirm, stringsToShow: nil, tintColor: nil, font: nil)
         passcodeLock = FakePasscodeLock(state: passcodeState, configuration: config)
     }
     
@@ -32,7 +33,7 @@ class ConfirmPasscodeStateTests: XCTestCase {
             
             var called = false
             
-            override func passcodeLockDidSucceed(lock: PasscodeLockType) {
+            override func passcodeLockDidSucceed(_ lock: PasscodeLockType) {
                 
                 called = true
             }
@@ -41,14 +42,14 @@ class ConfirmPasscodeStateTests: XCTestCase {
         let delegate = MockDelegate()
         
         passcodeLock.delegate = delegate
-        passcodeState.acceptPasscode(passcodeToConfirm, fromLock: passcodeLock)
+        passcodeState.acceptPasscode(passcodeToConfirm, fromLock: passcodeLock, stringsToShow: nil, tintColor: nil, font: nil)
         
         XCTAssertEqual(delegate.called, true, "Should call the delegate when the passcode is correct")
     }
     
     func testAcceptCorrectPasscodeWillSaveThePasscode() {
         
-        passcodeState.acceptPasscode(passcodeToConfirm, fromLock: passcodeLock)
+        passcodeState.acceptPasscode(passcodeToConfirm, fromLock: passcodeLock, stringsToShow: nil, tintColor: nil, font: nil)
         
         XCTAssertEqual(repository.savePasscodeCalled, true, "Should call the repository to save the new passcode")
         XCTAssertEqual(repository.savedPasscode, passcodeToConfirm, "Should save the confirmed passcode")
@@ -61,12 +62,12 @@ class ConfirmPasscodeStateTests: XCTestCase {
             var didFailed = false
             var didChangedState = false
             
-            override func passcodeLockDidFail(lock: PasscodeLockType) {
+            override func passcodeLockDidFail(_ lock: PasscodeLockType) {
                 
                 didFailed = true
             }
             
-            override func passcodeLockDidChangeState(lock: PasscodeLockType) {
+            override func passcodeLockDidChangeState(_ lock: PasscodeLockType) {
                 
                 didChangedState = true
             }
@@ -75,7 +76,7 @@ class ConfirmPasscodeStateTests: XCTestCase {
         let delegate = MockDelegate()
         
         passcodeLock.delegate = delegate
-        passcodeState.acceptPasscode(["1", "2"], fromLock: passcodeLock)
+        passcodeState.acceptPasscode(["1", "2"], fromLock: passcodeLock, stringsToShow: nil, tintColor: nil, font: nil)
         
         XCTAssertEqual(passcodeLock.changeStateCalled, true, "Should change the state")
         XCTAssert(passcodeLock.state is SetPasscodeState, "Should change the state to SetPasscodeState")

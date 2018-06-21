@@ -7,6 +7,7 @@
 //
 
 import XCTest
+@testable import PasscodeLock
 
 class PasscodeLockTests: XCTestCase {
     
@@ -29,7 +30,7 @@ class PasscodeLockTests: XCTestCase {
             
             var called = false
             
-            override func passcodeLockDidChangeState(lock: PasscodeLockType) {
+            override func passcodeLockDidChangeState(_ lock: PasscodeLockType) {
                 
                 called = true
             }
@@ -51,7 +52,7 @@ class PasscodeLockTests: XCTestCase {
             var called = false
             var signIndex = 0
             
-            override func passcodeLock(lock: PasscodeLockType, addedSignAtIndex index: Int) {
+            override func passcodeLock(_ lock: PasscodeLockType, addedSignAtIndex index: Int) {
                 
                 called = true
                 signIndex = index
@@ -61,12 +62,12 @@ class PasscodeLockTests: XCTestCase {
         let delegate = MockDelegate()
         
         passcodeLock.delegate = delegate
-        passcodeLock.addSign("1")
+        passcodeLock.addSign("1", stringsToBeDisplayed: nil, tintColor: nil, font: nil)
         
         XCTAssertEqual(delegate.called, true, "Should inform the delegate for added sign at index")
         XCTAssertEqual(delegate.signIndex, 0, "Should return the added sign index")
         
-        passcodeLock.addSign("2")
+        passcodeLock.addSign("2", stringsToBeDisplayed: nil, tintColor: nil, font: nil)
         
         XCTAssertEqual(delegate.signIndex, 1, "Should return the added sign index")
     }
@@ -78,7 +79,7 @@ class PasscodeLockTests: XCTestCase {
             var called = false
             var signIndex = 0
             
-            override func passcodeLock(lock: PasscodeLockType, removedSignAtIndex index: Int) {
+            override func passcodeLock(_ lock: PasscodeLockType, removedSignAtIndex index: Int) {
                 
                 called = true
                 signIndex = index
@@ -88,8 +89,8 @@ class PasscodeLockTests: XCTestCase {
         let delegate = MockDelegate()
         
         passcodeLock.delegate = delegate
-        passcodeLock.addSign("1")
-        passcodeLock.addSign("2")
+        passcodeLock.addSign("1", stringsToBeDisplayed: nil, tintColor: nil, font: nil)
+        passcodeLock.addSign("2", stringsToBeDisplayed: nil, tintColor: nil, font: nil)
         
         passcodeLock.removeSign()
         
@@ -106,7 +107,7 @@ class PasscodeLockTests: XCTestCase {
         
         for sign in passcode {
             
-            passcodeLock.addSign(sign)
+            passcodeLock.addSign(sign, stringsToBeDisplayed: nil, tintColor: nil, font: nil)
         }
         
         XCTAssertEqual(initialState.acceptPaccodeCalled, true, "When the passcode length is reached should call the current state to accept the entered passcode")
@@ -121,12 +122,12 @@ class PasscodeLockTests: XCTestCase {
         
         for sign in passcodeOne {
             
-            passcodeLock.addSign(sign)
+            passcodeLock.addSign(sign, stringsToBeDisplayed: nil, tintColor: nil, font: nil)
         }
         
         for sign in passcodeTwo {
             
-            passcodeLock.addSign(sign)
+            passcodeLock.addSign(sign, stringsToBeDisplayed: nil, tintColor: nil, font: nil)
         }
         
         XCTAssertEqual(initialState.numberOfAcceptedPasscodes, 2, "Should call the accept passcode twice")

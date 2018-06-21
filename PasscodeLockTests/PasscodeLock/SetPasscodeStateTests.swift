@@ -7,6 +7,7 @@
 //
 
 import XCTest
+@testable import PasscodeLock
 
 class SetPasscodeStateTests: XCTestCase {
     
@@ -21,7 +22,7 @@ class SetPasscodeStateTests: XCTestCase {
         
         let config = FakePasscodeLockConfiguration(repository: repository)
         
-        passcodeState = SetPasscodeState()
+        passcodeState = SetPasscodeState(stringsToShow: nil, tintColor: nil, font: nil)
         passcodeLock = FakePasscodeLock(state: passcodeState, configuration: config)
     }
     
@@ -31,7 +32,7 @@ class SetPasscodeStateTests: XCTestCase {
             
             var didChangedState = false
             
-            override func passcodeLockDidChangeState(lock: PasscodeLockType) {
+            override func passcodeLockDidChangeState(_ lock: PasscodeLockType) {
                 
                 didChangedState = true
             }
@@ -40,7 +41,7 @@ class SetPasscodeStateTests: XCTestCase {
         let delegate = MockDelegate()
         
         passcodeLock.delegate = delegate
-        passcodeState.acceptPasscode(repository.fakePasscode, fromLock: passcodeLock)
+        passcodeState.acceptPasscode(repository.fakePasscode, fromLock: passcodeLock, stringsToShow: nil, tintColor: nil, font: nil)
         
         XCTAssert(passcodeLock.state is ConfirmPasscodeState, "Should change the state to ConfirmPasscodeState")
         XCTAssertEqual(delegate.didChangedState, true, "Should inform the delegate for the state change")
