@@ -19,7 +19,7 @@ struct EnterPasscodeState: PasscodeLockStateType {
 	var tintColor			: UIColor?
 	var font				: UIFont?
     
-    private var inccorectPasscodeAttempts = 0
+    fileprivate var inccorectPasscodeAttempts = 0
     
 	init(allowCancellation: Bool = false, stringsToShow: StringsToBeDisplayed?, tintColor: UIColor?, font: UIFont?) {
 
@@ -28,10 +28,10 @@ struct EnterPasscodeState: PasscodeLockStateType {
         self.title = (stringsToShow?.passcodeLockEnterTitle ?? localizedStringFor("PasscodeLockEnterTitle", comment: "Enter passcode title"))
         self.description = (stringsToShow?.passcodeLockEnterDescription ?? localizedStringFor("PasscodeLockEnterDescription", comment: "Enter passcode description"))
 		self.tintColor = (tintColor ?? defaultColor)
-		self.font = (font ?? UIFont.systemFontOfSize(16))
+		self.font = (font ?? UIFont.systemFont(ofSize: 16))
     }
     
-	mutating func acceptPasscode(passcode: [String], fromLock lock: PasscodeLockType, stringsToShow: StringsToBeDisplayed?, tintColor: UIColor?, font: UIFont?) {
+	mutating func acceptPasscode(_ passcode: [String], fromLock lock: PasscodeLockType, stringsToShow: StringsToBeDisplayed?, tintColor: UIColor?, font: UIFont?) {
         
         guard let currentPasscode = lock.repository.passcode else {
             return
@@ -51,9 +51,9 @@ struct EnterPasscodeState: PasscodeLockStateType {
         }
     }
     
-    private mutating func postNotification() {
+    fileprivate mutating func postNotification() {
 
-        let center = NSNotificationCenter.defaultCenter()
-        center.postNotificationName(PasscodeLockIncorrectPasscodeNotification, object: nil)
+        let center = NotificationCenter.default
+        center.post(name: Notification.Name(rawValue: PasscodeLockIncorrectPasscodeNotification), object: nil)
     }
 }

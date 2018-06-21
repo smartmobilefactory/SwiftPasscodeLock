@@ -7,6 +7,7 @@
 //
 
 import XCTest
+@testable import PasscodeLock
 
 class ChangePasscodeStateTests: XCTestCase {
     
@@ -21,7 +22,7 @@ class ChangePasscodeStateTests: XCTestCase {
         
         let config = FakePasscodeLockConfiguration(repository: repository)
         
-        passcodeState = ChangePasscodeState()
+        passcodeState = ChangePasscodeState(stringsToShow: nil, tintColor: nil, font: nil)
         passcodeLock = FakePasscodeLock(state: passcodeState, configuration: config)
     }
     
@@ -31,7 +32,7 @@ class ChangePasscodeStateTests: XCTestCase {
             
             var didChangedState = false
             
-            override func passcodeLockDidChangeState(lock: PasscodeLockType) {
+            override func passcodeLockDidChangeState(_ lock: PasscodeLockType) {
                 
                 didChangedState = true
             }
@@ -40,7 +41,7 @@ class ChangePasscodeStateTests: XCTestCase {
         let delegate = MockDelegate()
         
         passcodeLock.delegate = delegate
-        passcodeState.acceptPasscode(repository.fakePasscode, fromLock: passcodeLock)
+        passcodeState.acceptPasscode(repository.fakePasscode, fromLock: passcodeLock, stringsToShow: nil, tintColor: nil, font: nil)
         
         XCTAssert(passcodeLock.state is SetPasscodeState, "Should change the state to SetPasscodeState")
         XCTAssertEqual(delegate.didChangedState, true, "Should call the delegate when the passcode is correct")
@@ -52,7 +53,7 @@ class ChangePasscodeStateTests: XCTestCase {
             
             var called = false
             
-            override func passcodeLockDidFail(lock: PasscodeLockType) {
+            override func passcodeLockDidFail(_ lock: PasscodeLockType) {
                 
                 called = true
             }
@@ -61,7 +62,7 @@ class ChangePasscodeStateTests: XCTestCase {
         let delegate = MockDelegate()
         
         passcodeLock.delegate = delegate
-        passcodeState.acceptPasscode(["0", "0", "0", "0"], fromLock: passcodeLock)
+        passcodeState.acceptPasscode(["0", "0", "0", "0"], fromLock: passcodeLock, stringsToShow: nil, tintColor: nil, font: nil)
         
         XCTAssertEqual(delegate.called, true, "Should call the delegate when the passcode is incorrect")
     }

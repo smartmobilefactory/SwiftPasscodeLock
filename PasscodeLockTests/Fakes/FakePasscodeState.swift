@@ -7,24 +7,25 @@
 //
 
 import Foundation
+import PasscodeLock
 
 class FakePasscodeState: PasscodeLockStateType {
-    
+
     var title = "A"
     var description = "B"
     var isCancellableAction = true
     var isTouchIDAllowed = true
-    
+	var tintColor: UIColor?
+
     var acceptPaccodeCalled = false
     var acceptedPasscode = [String]()
     var numberOfAcceptedPasscodes = 0
-    
+
     init() {}
-    
-    func acceptPasscode(passcode: [String], fromLock lock: PasscodeLockType) {
-        
-        acceptedPasscode = passcode
-        acceptPaccodeCalled = true
-        numberOfAcceptedPasscodes += 1
-    }
+
+	func acceptPasscode(_ passcode: [String], fromLock lock: PasscodeLockType, stringsToShow: StringsToBeDisplayed?, tintColor: UIColor?, font: UIFont?) {
+		acceptedPasscode = passcode
+		acceptPaccodeCalled = true
+		numberOfAcceptedPasscodes += 1
+	}
 }

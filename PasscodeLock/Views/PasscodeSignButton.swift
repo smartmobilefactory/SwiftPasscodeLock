@@ -8,12 +8,12 @@
 
 import UIKit
 
-public class PasscodeSignButton: UIButton {
+open class PasscodeSignButton: UIButton {
     
-    public var passcodeSign: String = "1"
-	public var customTintColor: UIColor? = UIColor(red: 0, green: 100/255, blue: 165/255, alpha: 1)
+    open var passcodeSign: String = "1"
+	open var customTintColor: UIColor? = UIColor(red: 0, green: 100/255, blue: 165/255, alpha: 1)
 
-	public override func awakeFromNib() {
+	open override func awakeFromNib() {
 		super.awakeFromNib()
 
 		self.tintColor = customTintColor

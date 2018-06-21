@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 struct SetPasscodeState: PasscodeLockStateType {
     
@@ -23,7 +24,7 @@ struct SetPasscodeState: PasscodeLockStateType {
         self.title = title
         self.description = description
 		self.tintColor = (tintColor ?? defaultColor)
-		self.font = (font ?? UIFont.systemFontOfSize(16))
+		self.font = (font ?? UIFont.systemFont(ofSize: 16))
     }
 
 	init(stringsToShow: StringsToBeDisplayed?, tintColor: UIColor?, font: UIFont?) {
@@ -32,10 +33,10 @@ struct SetPasscodeState: PasscodeLockStateType {
         self.title = (stringsToShow?.passcodeLockSetTitle ?? localizedStringFor("PasscodeLockSetTitle", comment: "Set passcode title"))
         self.description = (stringsToShow?.passcodeLockSetDescription ?? localizedStringFor("PasscodeLockSetDescription", comment: "Set passcode description"))
 		self.tintColor = (tintColor ?? defaultColor)
-		self.font = (font ?? UIFont.systemFontOfSize(16))
+		self.font = (font ?? UIFont.systemFont(ofSize: 16))
     }
     
-	func acceptPasscode(passcode: [String], fromLock lock: PasscodeLockType, stringsToShow: StringsToBeDisplayed?, tintColor: UIColor?, font: UIFont?) {
+	func acceptPasscode(_ passcode: [String], fromLock lock: PasscodeLockType, stringsToShow: StringsToBeDisplayed?, tintColor: UIColor?, font: UIFont?) {
         
 		let nextState = ConfirmPasscodeState(passcode: passcode, stringsToShow: stringsToShow, tintColor: tintColor, font: font)
         lock.changeStateTo(nextState)
