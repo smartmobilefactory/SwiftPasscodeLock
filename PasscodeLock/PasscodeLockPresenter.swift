@@ -58,7 +58,7 @@ open class PasscodeLockPresenter {
         
         let window = UIWindow(frame: UIScreen.main.bounds)
         
-        window.windowLevel = 0
+        window.windowLevel = UIWindowLevelNormal
         window.makeKeyAndVisible()
         
         return window
@@ -122,8 +122,9 @@ open class PasscodeLockPresenter {
             
         } else {
             
-            passcodeLockWindow.windowLevel = 0
+            passcodeLockWindow.windowLevel = UIWindowLevelNormal
             passcodeLockWindow.rootViewController = nil
+			passcodeLockWindow.isHidden = true
         }
     }
     
@@ -141,8 +142,9 @@ open class PasscodeLockPresenter {
             },
             completion: { [weak self] _ in
                 
-                self?.passcodeLockWindow.windowLevel = 0
+                self?.passcodeLockWindow.windowLevel = UIWindowLevelNormal
                 self?.passcodeLockWindow.rootViewController = nil
+				self?.passcodeLockWindow.isHidden = true
                 self?.passcodeLockWindow.alpha = 1
             }
         )
