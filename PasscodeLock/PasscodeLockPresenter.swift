@@ -124,6 +124,7 @@ open class PasscodeLockPresenter {
             
             passcodeLockWindow.windowLevel = UIWindowLevelNormal
             passcodeLockWindow.rootViewController = nil
+			passcodeLockWindow.isHidden = true
         }
     }
     
@@ -143,6 +144,7 @@ open class PasscodeLockPresenter {
                 
                 self?.passcodeLockWindow.windowLevel = UIWindowLevelNormal
                 self?.passcodeLockWindow.rootViewController = nil
+				self?.passcodeLockWindow.isHidden = true
                 self?.passcodeLockWindow.alpha = 1
             }
         )
