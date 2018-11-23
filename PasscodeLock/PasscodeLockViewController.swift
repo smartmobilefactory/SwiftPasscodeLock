@@ -132,14 +132,14 @@ open class PasscodeLockViewController: UIViewController, PasscodeLockTypeDelegat
     
     fileprivate func setupEvents() {
         
-        notificationCenter?.addObserver(self, selector: #selector(self.appWillEnterForegroundHandler(_:)), name: NSNotification.Name.UIApplicationWillEnterForeground, object: nil)
-        notificationCenter?.addObserver(self, selector: #selector(PasscodeLockViewController.appDidEnterBackgroundHandler(_:)), name: NSNotification.Name.UIApplicationDidEnterBackground, object: nil)
+        notificationCenter?.addObserver(self, selector: #selector(self.appWillEnterForegroundHandler(_:)), name: UIApplication.willEnterForegroundNotification, object: nil)
+        notificationCenter?.addObserver(self, selector: #selector(PasscodeLockViewController.appDidEnterBackgroundHandler(_:)), name: UIApplication.didEnterBackgroundNotification, object: nil)
     }
     
     fileprivate func clearEvents() {
         
-        notificationCenter?.removeObserver(self, name: NSNotification.Name.UIApplicationWillEnterForeground, object: nil)
-        notificationCenter?.removeObserver(self, name: NSNotification.Name.UIApplicationDidEnterBackground, object: nil)
+        notificationCenter?.removeObserver(self, name: UIApplication.willEnterForegroundNotification, object: nil)
+        notificationCenter?.removeObserver(self, name: UIApplication.didEnterBackgroundNotification, object: nil)
     }
     
     @objc open func appWillEnterForegroundHandler(_ notification: Notification) {
@@ -299,8 +299,8 @@ open class PasscodeLockViewController: UIViewController, PasscodeLockTypeDelegat
 		
 		let cancelButton = ((self.passcodeLock.isPincodeEmpty == true) ? (self.stringsToShow?.cancel ?? localizedStringFor("Cancel", comment: "")) : (self.stringsToShow?.delete ?? localizedStringFor("Delete", comment: "")))
 		let titleForButton = ((self.passcodeLock.state.isCancellableAction == true) ? cancelButton : (self.stringsToShow?.delete ?? localizedStringFor("Delete", comment: "")))
-		self.cancelDeleteButton?.setTitle(titleForButton, for: UIControlState())
-		self.cancelDeleteButton?.setTitleColor(self.customTintColor, for: UIControlState())
+        self.cancelDeleteButton?.setTitle(titleForButton, for: UIControl.State())
+        self.cancelDeleteButton?.setTitleColor(self.customTintColor, for: UIControl.State())
 		self.cancelDeleteButton?.setTitleColor(self.customTintColor?.withAlphaComponent(0.5), for: .disabled)
 		self.cancelDeleteButton?.titleLabel?.font = self.font
 
