@@ -58,7 +58,7 @@ open class PasscodeLockPresenter {
         
         let window = UIWindow(frame: UIScreen.main.bounds)
         
-        window.windowLevel = UIWindowLevelNormal
+        window.windowLevel = UIWindow.Level.normal
         window.makeKeyAndVisible()
         
         return window
@@ -66,7 +66,7 @@ open class PasscodeLockPresenter {
     
     fileprivate let passcodeConfiguration: PasscodeLockConfigurationType
     open var isPasscodePresented = false
-    open let passcodeLockVC: PasscodeLockViewController
+    public let passcodeLockVC: PasscodeLockViewController
 	open var stringsToBeDisplayed: StringsToBeDisplayed?
     
     public init(mainWindow window: UIWindow?, configuration: PasscodeLockConfigurationType, viewController: PasscodeLockViewController) {
@@ -90,7 +90,7 @@ open class PasscodeLockPresenter {
         
         isPasscodePresented = true
         
-        passcodeLockWindow.windowLevel = UIWindowLevelStatusBar
+        passcodeLockWindow.windowLevel = UIWindow.Level.statusBar
         passcodeLockWindow.isHidden = false
         
         mainWindow?.endEditing(true)
@@ -122,7 +122,7 @@ open class PasscodeLockPresenter {
             
         } else {
             
-            passcodeLockWindow.windowLevel = UIWindowLevelNormal
+            passcodeLockWindow.windowLevel = UIWindow.Level.normal
             passcodeLockWindow.rootViewController = nil
 			passcodeLockWindow.isHidden = true
         }
@@ -135,14 +135,14 @@ open class PasscodeLockPresenter {
             delay: 0,
             usingSpringWithDamping: 1,
             initialSpringVelocity: 0,
-            options: UIViewAnimationOptions(),
+            options: UIView.AnimationOptions(),
             animations: { [weak self] in
                 
                 self?.passcodeLockWindow.alpha = 0
             },
             completion: { [weak self] _ in
                 
-                self?.passcodeLockWindow.windowLevel = UIWindowLevelNormal
+                self?.passcodeLockWindow.windowLevel = UIWindow.Level.normal
                 self?.passcodeLockWindow.rootViewController = nil
 				self?.passcodeLockWindow.isHidden = true
                 self?.passcodeLockWindow.alpha = 1

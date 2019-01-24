@@ -133,7 +133,7 @@ open class PasscodeLockViewController: UIViewController, PasscodeLockTypeDelegat
 			}
 		}
 
-		self.touchIDButton?.setTitle((useBiomatricsToShow ?? useBiometrics), for: UIControlState())
+		self.touchIDButton?.setTitle((useBiomatricsToShow ?? useBiometrics), for: UIControl.State())
 		self.passcodeButtons?.forEach({ (passcodeButton: PasscodeSignButton) in
 			passcodeButton.tintColor = self.customTintColor
 		})
@@ -145,22 +145,22 @@ open class PasscodeLockViewController: UIViewController, PasscodeLockTypeDelegat
     
     fileprivate func setupEvents() {
         
-        notificationCenter?.addObserver(self, selector: #selector(self.appWillEnterForegroundHandler(_:)), name: NSNotification.Name.UIApplicationWillEnterForeground, object: nil)
-        notificationCenter?.addObserver(self, selector: #selector(PasscodeLockViewController.appDidEnterBackgroundHandler(_:)), name: NSNotification.Name.UIApplicationDidEnterBackground, object: nil)
+        notificationCenter?.addObserver(self, selector: #selector(self.appWillEnterForegroundHandler(_:)), name: UIApplication.willEnterForegroundNotification, object: nil)
+        notificationCenter?.addObserver(self, selector: #selector(PasscodeLockViewController.appDidEnterBackgroundHandler(_:)), name: UIApplication.didEnterBackgroundNotification, object: nil)
     }
     
     fileprivate func clearEvents() {
         
-        notificationCenter?.removeObserver(self, name: NSNotification.Name.UIApplicationWillEnterForeground, object: nil)
-        notificationCenter?.removeObserver(self, name: NSNotification.Name.UIApplicationDidEnterBackground, object: nil)
+        notificationCenter?.removeObserver(self, name: UIApplication.willEnterForegroundNotification, object: nil)
+        notificationCenter?.removeObserver(self, name: UIApplication.didEnterBackgroundNotification, object: nil)
     }
     
-    open func appWillEnterForegroundHandler(_ notification: Notification) {
+    @objc open func appWillEnterForegroundHandler(_ notification: Notification) {
         
         authenticateWithBiometrics()
     }
     
-    open func appDidEnterBackgroundHandler(_ notification: Notification) {
+    @objc open func appDidEnterBackgroundHandler(_ notification: Notification) {
         
         shouldTryToAuthenticateWithBiometrics = false
     }
@@ -208,7 +208,7 @@ open class PasscodeLockViewController: UIViewController, PasscodeLockTypeDelegat
         // if presented as modal
         if (presentingViewController?.presentedViewController == self) {
             
-            dismiss(animated: animateOnDismiss, completion: { [weak self] _ in
+            dismiss(animated: animateOnDismiss, completion: { [weak self] in
                 self?.dismissCompletionCallback?()
                 completionHandler?()
             })
@@ -268,7 +268,7 @@ open class PasscodeLockViewController: UIViewController, PasscodeLockTypeDelegat
 
 		self.cancelDeleteButtonSetup()
         animatePlaceholders(placeholders, toState: .inactive)
-        dismissPasscodeLock(lock, completionHandler: { [weak self] _ in
+        dismissPasscodeLock(lock, completionHandler: { [weak self] in
             self?.successCallback?(lock)
         })
     }
@@ -304,8 +304,8 @@ open class PasscodeLockViewController: UIViewController, PasscodeLockTypeDelegat
 		
 		let cancelButton = ((self.passcodeLock.isPincodeEmpty == true) ? (self.stringsToShow?.cancel ?? localizedStringFor("Cancel", comment: "")) : (self.stringsToShow?.delete ?? localizedStringFor("Delete", comment: "")))
 		let titleForButton = ((self.passcodeLock.state.isCancellableAction == true) ? cancelButton : (self.stringsToShow?.delete ?? localizedStringFor("Delete", comment: "")))
-		self.cancelDeleteButton?.setTitle(titleForButton, for: UIControlState())
-		self.cancelDeleteButton?.setTitleColor(self.customTintColor, for: UIControlState())
+		self.cancelDeleteButton?.setTitle(titleForButton, for: UIControl.State())
+		self.cancelDeleteButton?.setTitleColor(self.customTintColor, for: UIControl.State())
 		self.cancelDeleteButton?.setTitleColor(self.customTintColor?.withAlphaComponent(0.5), for: .disabled)
 		self.cancelDeleteButton?.titleLabel?.font = self.font
 
