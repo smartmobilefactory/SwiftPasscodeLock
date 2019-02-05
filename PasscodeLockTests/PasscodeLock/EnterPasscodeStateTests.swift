@@ -18,10 +18,10 @@ class NotificaionObserver: NSObject {
         
         let center = NotificationCenter.default
         
-        center.addObserver(self, selector: #selector(NotificaionObserver.handle(_:)), name: NSNotification.Name(rawValue: notification), object: nil)
+        center.addObserver(self, selector: #selector(NotificaionObserver.handle), name: NSNotification.Name(rawValue: notification), object: nil)
     }
     
-    func handle(_ notification: Notification) {
+    @objc func handle(_ notification: Notification) {
         
         called = true
         callCounter += 1
