@@ -10,7 +10,7 @@ import Foundation
 
 public let PasscodeLockIncorrectPasscodeNotification = "passcode.lock.incorrect.passcode.notification"
 
-struct EnterPasscodeState: PasscodeLockStateType {
+class EnterPasscodeState: PasscodeLockStateType {
     
     let title				: String
     let description			: String
@@ -31,7 +31,7 @@ struct EnterPasscodeState: PasscodeLockStateType {
 		self.font = (font ?? UIFont.systemFont(ofSize: 16))
     }
     
-	mutating func acceptPasscode(_ passcode: [String], fromLock lock: PasscodeLockType, stringsToShow: StringsToBeDisplayed?, tintColor: UIColor?, font: UIFont?) {
+	func acceptPasscode(_ passcode: [String], fromLock lock: PasscodeLockType, stringsToShow: StringsToBeDisplayed?, tintColor: UIColor?, font: UIFont?) {
         
         guard let currentPasscode = lock.repository.passcode else {
             return
@@ -51,7 +51,7 @@ struct EnterPasscodeState: PasscodeLockStateType {
         }
     }
     
-    fileprivate mutating func postNotification() {
+    fileprivate func postNotification() {
 
         let center = NotificationCenter.default
         center.post(name: Notification.Name(rawValue: PasscodeLockIncorrectPasscodeNotification), object: nil)
