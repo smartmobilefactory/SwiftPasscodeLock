@@ -10,7 +10,7 @@ import UIKit
 
 public protocol PasscodeLockType {
     
-    weak var delegate: PasscodeLockTypeDelegate? {get set}
+    var delegate: PasscodeLockTypeDelegate? {get set}
     var configuration: PasscodeLockConfigurationType {get}
     var repository: PasscodeRepositoryType {get}
     var state: PasscodeLockStateType {get}
