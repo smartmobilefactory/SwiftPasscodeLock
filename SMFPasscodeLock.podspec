@@ -9,13 +9,14 @@
 Pod::Spec.new do |s|
 	s.name = 'SMFPasscodeLock'
 	s.version = '2.2.1'
+	s.swift_version	= "5.0"
 	s.license = { :type => "MIT", :file => 'LICENSE.txt' }
 	s.summary = 'SMF Fork of PasscodeLock: An iOS passcode lock with Touch ID authentication written in Swift.'
 	s.homepage = 'https://github.com/smartmobilefactory/SwiftPasscodeLock'
 	s.source = { :git => 'https://github.com/smartmobilefactory/SwiftPasscodeLock.git', :tag => "releases/#{s.version}" }
 	s.authors = [{ 'Ramiro Ramirez' => '' }, { 'Yanko Dimitrov' => '' }, { 'Hans Seiffert' => '' }]
 
-	s.ios.deployment_target = '8.0'
+	s.ios.deployment_target = '10.0'
 
 	s.source_files = 'PasscodeLock/*.{h,swift}',
 					 'PasscodeLock/*/*.{swift}'
