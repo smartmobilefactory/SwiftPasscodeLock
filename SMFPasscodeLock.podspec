@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
 	s.source = { :git => 'https://github.com/smartmobilefactory/SwiftPasscodeLock.git', :tag => "releases/#{s.version}" }
 	s.authors = [{ 'Ramiro Ramirez' => '' }, { 'Yanko Dimitrov' => '' }, { 'Hans Seiffert' => '' }]
 
-	s.ios.deployment_target = '10.0'
+	s.ios.deployment_target = '8.0'
 
 	s.source_files = 'PasscodeLock/*.{h,swift}',
 					 'PasscodeLock/*/*.{swift}'
