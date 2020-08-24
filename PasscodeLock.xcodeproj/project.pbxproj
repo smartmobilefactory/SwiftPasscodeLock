@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1C8CA9A424F45C3900954481 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1C8CA9A324F45C3900954481 /* Colors.xcassets */; };
 		281AA9201DB626E000908E23 /* Localize.strings in Resources */ = {isa = PBXBuildFile; fileRef = 281AA9221DB626E000908E23 /* Localize.strings */; };
 		4A57CCF92010A437006A7B80 /* Localize.strings in Resources */ = {isa = PBXBuildFile; fileRef = 281AA9221DB626E000908E23 /* Localize.strings */; };
 		8F3B9D031E028815008CF18F /* PasscodeLockImages.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8F3B9D021E028815008CF18F /* PasscodeLockImages.xcassets */; };
@@ -95,6 +96,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		1C8CA9A324F45C3900954481 /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
 		281AA9211DB626E000908E23 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localize.strings; sourceTree = "<group>"; };
 		285BBDA71DB62D9100F33CBA /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Main.strings; sourceTree = "<group>"; };
 		285BBDA81DB62D9100F33CBA /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
@@ -227,6 +229,7 @@
 				C9DC08151B90DF4E007A4DD0 /* PasscodeLockViewController.swift */,
 				C9D3DF471B91F099008561EB /* PasscodeLockPresenter.swift */,
 				8F3B9D021E028815008CF18F /* PasscodeLockImages.xcassets */,
+				1C8CA9A324F45C3900954481 /* Colors.xcassets */,
 			);
 			path = PasscodeLock;
 			sourceTree = "<group>";
@@ -474,6 +477,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
 				de,
@@ -498,6 +502,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C9D3DF0B1B919CE4008561EB /* PasscodeLockView.xib in Resources */,
+				1C8CA9A424F45C3900954481 /* Colors.xcassets in Resources */,
 				8F3B9D031E028815008CF18F /* PasscodeLockImages.xcassets in Resources */,
 				281AA9201DB626E000908E23 /* Localize.strings in Resources */,
 			);
@@ -705,7 +710,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -759,7 +764,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
@@ -845,7 +850,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				DEVELOPMENT_TEAM = JZ2H644EU7;
 				INFOPLIST_FILE = PasscodeLockDemo/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.yankodimitrov.PasscodeLockDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -862,7 +867,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = PasscodeLockDemo/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.yankodimitrov.PasscodeLockDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
