@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
 	s.name = 'SMFPasscodeLock'
-	s.version = '2.3.0'
+	s.version = '2.3.1'
 	s.swift_version	= "5.0"
 	s.license = { :type => "MIT", :file => 'LICENSE.txt' }
 	s.summary = 'SMF Fork of PasscodeLock: An iOS passcode lock with Touch ID authentication written in Swift.'
@@ -24,6 +24,7 @@ Pod::Spec.new do |s|
 	s.resources = [
 				'PasscodeLock/Views/PasscodeLockView.xib',
 				'PasscodeLock/en.lproj/*',
+				'PasscodeLock/Colors.xcassets',
 				'PasscodeLock/PasscodeLockImages.xcassets',
 				'PasscodeLock/PasscodeLockImages.xcassets/**/*'
 			  ]
