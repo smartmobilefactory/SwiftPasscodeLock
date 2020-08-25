@@ -24,6 +24,7 @@ Pod::Spec.new do |s|
 	s.resources = [
 				'PasscodeLock/Views/PasscodeLockView.xib',
 				'PasscodeLock/en.lproj/*',
+				'PasscodeLock/Colors.xcassets',
 				'PasscodeLock/PasscodeLockImages.xcassets',
 				'PasscodeLock/PasscodeLockImages.xcassets/**/*'
 			  ]
