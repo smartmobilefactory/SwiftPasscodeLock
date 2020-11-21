@@ -68,9 +68,12 @@ open class PasscodeLock: PasscodeLockType {
     }
     
 	open func authenticateWithBiometrics(_ stringsToShow: StringsToBeDisplayed?) {
-        
-        guard isTouchIDAllowed else { return }
-        
+		guard
+			(self.isTouchIDAllowed == true),
+			(self.repository.hasPasscode == true) else {
+				return
+		}
+
         let context = LAContext()
         let reason = (stringsToShow?.passcodeLockTouchIDReason ?? localizedStringFor("PasscodeLockTouchIDReason", comment: "TouchID authentication reason"))
 
