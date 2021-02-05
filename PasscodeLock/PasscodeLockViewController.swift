@@ -93,6 +93,14 @@ open class PasscodeLockViewController: UIViewController, PasscodeLockTypeDelegat
         self.updatePasscodeView()
         self.setupEvents()
     }
+	
+	open override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+		super.traitCollectionDidChange(previousTraitCollection)
+
+		for (index, element) in self.placeholders.enumerated() {
+			self.animatePlacehodlerAtIndex(index, toState: element.currentState)
+		}
+	}
 
 	fileprivate func configurePasscodeButtons() {
 
