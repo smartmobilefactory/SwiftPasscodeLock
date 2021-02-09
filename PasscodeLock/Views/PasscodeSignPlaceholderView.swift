@@ -38,6 +38,8 @@ open class PasscodeSignPlaceholderView: UIView {
 		}
 	}
 
+	var currentState = State.inactive
+
     public override init(frame: CGRect) {
         
         super.init(frame: frame)
@@ -73,14 +75,15 @@ open class PasscodeSignPlaceholderView: UIView {
     }
     
 	open func animateState(_ state: State, completion: (() -> Void)? = nil) {
-        
-        let colors = colorsForState(state)
+
+		self.currentState = state
+		let colors = colorsForState(state)
 
 		UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 0, options: [], animations: { [weak self] in
 			self?.backgroundColor = colors.backgroundColor
 			self?.layer.borderColor = colors.borderColor.cgColor
 
- 		}, completion: nil)
+		}, completion: nil)
 	}
 
 }
